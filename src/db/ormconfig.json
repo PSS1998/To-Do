@@ -6,6 +6,6 @@
       "dist/db/entity/**/*.js"
     ],
     "cli": {
-      "entitiesDir": "src/db/entity"
+      "entitiesDir": "src/db"
     }
 }
