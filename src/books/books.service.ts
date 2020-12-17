@@ -1,5 +1,6 @@
 import BookEntity from '../db/book.entity';
 import CreateBookDto from './dto/create-book.dto';
+import UpdateBookDto from './dto/update-book.dto';
 import UserEntity from '../db/user.entity';
 import { createQueryBuilder, getConnection } from 'typeorm';
 import GenreEntity from '../db/genre.entity';
@@ -24,4 +25,17 @@ export class BooksService {
     // const user: UserEntity = await UserEntity.findOne({where: {id: 2}, relations: ['books']});
     return BookEntity.find();
   }
+
+  async deleteBook(bookID: number): Promise<any> {
+    return await BookEntity.delete(bookID);
+  }
+
+  async updateBook(bookID: number, bookDetails: UpdateBookDto): Promise<BookEntity> {
+    const bookEntity: BookEntity = await BookEntity.findOne({where: {id: bookID}});
+    const {name } = bookDetails;
+    bookEntity.name = name;
+    await BookEntity.update(bookID, bookEntity);
+    return bookEntity;
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import UserEntity from '../db/user.entity';
 import CreateUserDto from './dto/create-user.dto';
+import UpdateUserDto from './dto/update-user.dto';
 import BookEntity from '../db/book.entity';
 import {getConnection} from "typeorm";
 
@@ -29,7 +30,7 @@ export class UserService {
     return await UserEntity.delete(userID);
   }
 
-  async updateUser(userID: number, userDetails: CreateUserDto): Promise<UserEntity> {
+  async updateUser(userID: number, userDetails: UpdateUserDto): Promise<UserEntity> {
     const userEntity: UserEntity = await UserEntity.findOne({where: {id: userID}});
     const {name } = userDetails;
     userEntity.name = name;
