@@ -8,4 +8,4 @@
     "cli": {
       "entitiesDir": "src/db/entity"
     }
-  }
+}
