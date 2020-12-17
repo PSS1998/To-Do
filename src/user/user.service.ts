@@ -14,12 +14,27 @@ export class UserService {
     await UserEntity.save(userEntity);
     return userEntity;
   }
+
   async getAllUsers(): Promise<UserEntity[]> {
     return await UserEntity.find();
   }
+
   async getBooksOfUser(userID: number): Promise<BookEntity[]> {
     console.log(typeof(userID));
     const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['books']});
     return user.books;
   }
+
+  async deleteUser(userID: number): Promise<any> {
+    return await UserEntity.delete(userID);
+  }
+
+  async updateUser(userID: number, userDetails: CreateUserDto): Promise<UserEntity> {
+    const userEntity: UserEntity = await UserEntity.findOne({where: {id: userID}});
+    const {name } = userDetails;
+    userEntity.name = name;
+    await UserEntity.update(userID, userEntity);
+    return userEntity;
+  }
+
 }
