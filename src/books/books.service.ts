@@ -24,3 +24,4 @@ export class BooksService {
     // const user: UserEntity = await UserEntity.findOne({where: {id: 2}, relations: ['books']});
     return BookEntity.find();
   }
+}
