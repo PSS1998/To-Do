@@ -8,6 +8,12 @@ export default class UserEntity extends BaseEntity {
   id: number;
 
   @Column({ length: 500 })
+  username: string;
+
+  @Column({ length: 500 })
+  password: string;
+
+  @Column({ length: 500 })
   name: string;
 
   // 1:n relation with bookEntity 
