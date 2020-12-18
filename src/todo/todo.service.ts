@@ -32,7 +32,7 @@ export class TodoService {
         const itemEntity: ItemEntity = ItemEntity.create();
         const {description, task} = itemDetails;
     
-        const itemOwner: TaskEntity = await TaskEntity.findOne({where: {task: task}});
+        const itemOwner: TaskEntity = await TaskEntity.findOne({where: {id: task}});
         itemEntity.description = description;
         itemEntity.task = itemOwner;
         await ItemEntity.save(itemEntity);
@@ -44,7 +44,7 @@ export class TodoService {
         const tagEntity: TagEntity = TagEntity.create();
         const {name, task} = tagDetails;
     
-        const tagOwner: TaskEntity = await TaskEntity.findOne({where: {task: task}});
+        const tagOwner: TaskEntity = await TaskEntity.findOne({where: {id: task}});
         tagEntity.name = name;
         tagEntity.task = tagOwner;
         await TagEntity.save(tagEntity);

@@ -33,6 +33,7 @@ export class TodoController {
   async postTask( @Req() request: Request, @Body() taskDto: CreateTaskDto) {
     const jwtToken: string = request.headers.authorization;
     const jwtDecoded: any = jwt.decode(jwtToken.split(" ")[1]);
+    console.log(jwtDecoded)
     const user: UserEntity = await UserEntity.findOne({where: {username: jwtDecoded.username}});
     return this.todoService.insertTask(user.id, taskDto);
   }
