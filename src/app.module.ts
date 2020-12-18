@@ -7,6 +7,7 @@ import BooksModule from './books/books.module';
 import GenreModule from './genre/genre.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TodoModule } from './todo/todo.module';
 import BookEntity from './db/book.entity';
 import GenreEntity from './db/genre.entity';
 import UserEntity from './db/user.entity';
@@ -18,6 +19,7 @@ import UserEntity from './db/user.entity';
     ),
     TypeOrmModule.forRoot(),
     AuthModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

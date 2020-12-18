@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import CreateUserDto from './dto/create-user.dto';
 import UpdateUserDto from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import {ApiBearerAuth} from '@nestjs/swagger';
+import { ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 
 
 @Controller('user')
@@ -11,6 +11,22 @@ export class UserController {
   constructor(private readonly usersServices: UserService) {}
 
   //'postUser()' will handle the creating of new User
+  @ApiResponse({ status: 200})
+  @ApiQuery({
+    name: 'username',
+    required: true,
+    type: String,
+  })
+  @ApiQuery({
+    name: 'password',
+    required: true,
+    type: String,
+  })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    type: String,
+  })
   @Post('post')
   postUser( @Body() user: CreateUserDto) {
     return this.usersServices.insert(user);
@@ -18,38 +34,29 @@ export class UserController {
 
   // 'getAll()' returns the list of all the existing users in the database
   @ApiBearerAuth()
+  @ApiResponse({ status: 200})
   @UseGuards(JwtAuthGuard)
   @Get()
   getAll() {
+    // console.log(JwtAuthGuard.arguments.username);
     return this.usersServices.getAllUsers();
   }
 
-  //'getBooks()' return all the books which are associated with the user 
-  // provided through 'userID' by the request  
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get('books')
-  getBooks( @Body('userID', ParseIntPipe) userID: number ) {
-    return this.usersServices.getBooksOfUser(userID);
-  }
-
-  // @Delete()
-  // deleteUser( @Body() user: CreateUserDto ) {
-  //   return this.usersServices.deleteUser(user);
-  // }
-  @ApiBearerAuth()
+  @ApiResponse({ status: 200})
   @UseGuards(JwtAuthGuard)
   @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.usersServices.deleteUser(+id);
   }
-  
 
-  // @Put()
-  // updateUSer( @Body() user: CreateUserDto ) {
-  //   return this.usersServices.updateUser(user); 
-  // }
   @ApiBearerAuth()
+  @ApiResponse({ status: 200})
+  @ApiQuery({
+    name: 'name',
+    required: true,
+    type: String,
+  })
   @UseGuards(JwtAuthGuard)
   @Put('update/:id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

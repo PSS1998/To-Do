@@ -10,12 +10,12 @@ export class BooksController {
   constructor(private readonly booksServices: BooksService) {}
 
   //'postUser()' will handle the creating of new User
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Post('post')
-  postBook( @Body() book: CreateBookDto) {
-    return this.booksServices.insert(book);
-  }
+  // @ApiBearerAuth()
+  // @UseGuards(JwtAuthGuard)
+  // @Post('post')
+  // postBook( @Body() book: CreateBookDto) {
+  //   return this.booksServices.insert(book);
+  // }
 
   // 'getAll()' returns the list of all the existing users in the database
   @ApiBearerAuth()

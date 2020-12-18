@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import UserEntity from '../db/user.entity';
 import CreateUserDto from './dto/create-user.dto';
 import UpdateUserDto from './dto/update-user.dto';
-import BookEntity from '../db/book.entity';
+import TaskEntity from '../db/task.entity';
 import {getConnection} from "typeorm";
 
 @Injectable()
@@ -27,10 +27,10 @@ export class UserService {
     return user;
   }
 
-  async getBooksOfUser(userID: number): Promise<BookEntity[]> {
+  async getTasksOfUser(userID: number): Promise<TaskEntity[]> {
     console.log(typeof(userID));
-    const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['books']});
-    return user.books;
+    const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['tasks']});
+    return user.tasks;
   }
 
   async deleteUser(userID: number): Promise<any> {

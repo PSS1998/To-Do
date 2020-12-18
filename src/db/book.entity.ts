@@ -12,8 +12,8 @@ export default class BookEntity extends BaseEntity
   name: string;
 
   // n:1 relation with books
-  @ManyToOne(type => UserEntity, user => user.books)
-  user: UserEntity;
+  // @ManyToOne(type => UserEntity, user => user.books)
+  // user: UserEntity;
 
   // n:n relation with genre
   @ManyToMany(type => GenreEntity)
