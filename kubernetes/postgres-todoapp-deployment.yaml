@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgres-todoapp
+  name: postgres-todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgres-todoapp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/todoapp-network: "true"
+        io.kompose.service: postgres-todoapp
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: todoapp
+            - name: POSTGRES_PASSWORD
+              value: spider
+            - name: POSTGRES_USER
+              value: postgres
+          image: postgres
+          name: postgres-todoapp
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/data
+              name: postgres-data
+      restartPolicy: Always
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data
+status: {}
