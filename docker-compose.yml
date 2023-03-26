@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./todo-frontend
+    image: frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - todoapp-network
+
+  backend:
+    build: ./To-Do
+    image: backend
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres_todoapp
+    environment:
+      POSTGRES_HOST: postgres-todoapp
+    networks:
+      - todoapp-network
+
+  postgres_todoapp:
+    image: postgres
+    container_name: postgres-todoapp
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: spider
+      POSTGRES_DB: todoapp
+    volumes:
+      - postgres_data:/var/data
+    networks:
+      - todoapp-network
+
+volumes:
+  postgres_data:
+
+networks:
+  todoapp-network:
