@@ -2,7 +2,7 @@ version: "3"
 
 services:
   frontend:
-    build: ./todo-frontend
+    build: ./frontend
     image: frontend
     container_name: frontend
     ports:
@@ -11,7 +11,7 @@ services:
       - todoapp-network
 
   backend:
-    build: ./To-Do
+    build: ./backend
     image: backend
     container_name: backend
     ports:
